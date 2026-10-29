@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WIRESHARK by 0xbit - learn Wireshark by completing guided missions inside a real, fully local packet viewer. No uploads, no install.">
+    <meta name="color-scheme" content="dark">
+    <title>WIRESHARK by 0xbit - learn packet analysis by doing</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/academy.css">
+</head>
+<body>
+    <div class="bw-shell">
+        <header class="bw-top">
+            <div class="bw-brand">
+                <img class="bw-logo" src="static/logo.png" alt="" aria-hidden="true">
+                <span class="bw-name">WIRESHARK</span>
+            </div>
+            <div class="bw-top-actions">
+                <div class="bw-hud" aria-label="Academy progress">
+                    <span class="bw-hud-rank">
+                        <span class="bw-hud-label">Rank</span>
+                        <strong id="hudLevel">Curious</strong>
+                    </span>
+                    <span class="bw-hud-xp" id="hudXp">0 XP</span>
+                </div>
+                <span class="bw-local"><span class="bw-dot" aria-hidden="true"></span> 100% local</span>
+                <button type="button" class="bw-btn" id="topOpenBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z"/>
+                        <path d="M12 11v5m0-5-2 2m2-2 2 2"/>
+                    </svg>
+                    <span>Open capture</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="bw-main">
+            <section class="bw-hero bw-hero-split" aria-labelledby="heroTitle">
+                <div class="bw-hero-copy">
+                    <p class="bw-kicker">Interactive Wireshark training</p>
+                    <h1 id="heroTitle">Learn Wireshark<br><span>by doing.</span></h1>
+                    <p class="bw-sub">
+                        A guided range built on a real packet analyzer. Every mission loads a capture,
+                        asks you to perform a real analysis step, and checks your work as you click,
+                        filter, dissect and type. No videos, no slides - just packets.
+                    </p>
+
+                    <div class="bw-actions">
+                        <button type="button" class="bw-btn primary bw-btn-lg" id="startTrainingBtn">Start training</button>
+                        <button type="button" class="bw-btn bw-btn-lg" id="browseMissionsBtn">Browse the map</button>
+                        <button type="button" class="bw-btn bw-btn-lg bw-btn-ghost" id="sandboxBtn">Free-play sandbox</button>
+                    </div>
+
+                    <ul class="bw-hero-stats" aria-label="Academy contents">
+                        <li><strong>87</strong><span>missions</span></li>
+                        <li><strong>12</strong><span>chapters</span></li>
+                        <li><strong>10</strong><span>captures</span></li>
+                        <li><strong>0</strong><span>uploads</span></li>
+                    </ul>
+                    <p class="bw-hero-note">
+                        Beginner to expert: display filters, protocol deep-dives, IPv6, web forensics, encrypted traffic, malware analysis, C2 hunting and incident triage.
+                        Every chapter includes ten harder challenge questions spread across its missions, and every mission ends with a fill-in-the-blank check. Hints cost XP, wrong answers are free, and progress is saved in this browser.
+                    </p>
+                </div>
+
+                <aside class="bw-progress-card" aria-labelledby="progressTitle">
+                    <div class="bw-progress-head">
+                        <p class="bw-progress-kicker">Field record</p>
+                        <h2 id="progressTitle">Your progress</h2>
+                    </div>
+
+                    <div class="bw-progress-meta">
+                        <strong id="hudMissions">0 / 87 missions</strong>
+                        <span id="xpNote">400 XP to Packet Scout</span>
+                    </div>
+
+                    <div class="bw-xpbar" role="progressbar" aria-label="XP toward next rank" aria-valuemin="0" aria-valuemax="100">
+                        <span id="xpFill"></span>
+                    </div>
+
+                    <p class="bw-progress-label">Chapter badges</p>
+                    <div class="bw-badges" id="academyBadges"></div>
+
+                    <button type="button" class="bw-reset" id="resetProgressBtn">Reset all progress</button>
+                </aside>
+            </section>
+
+            <section class="bw-academy" id="missions" aria-labelledby="mapTitle">
+                <div class="bw-section-head">
+                    <div>
+                        <p class="bw-kicker">The training range</p>
+                        <h2 id="mapTitle">Twelve chapters. One packet at a time.</h2>
+                        <p id="academyMapSummary" class="bw-section-note">Start at mission 1. Each mission unlocks the next one.</p>
+                    </div>
+                    <div class="bw-legend" aria-hidden="true">
+                        <span><i class="bw-legend-dot open"></i> open</span>
+                        <span><i class="bw-legend-dot done"></i> cleared</span>
+                        <span><i class="bw-legend-dot locked"></i> locked</span>
+                    </div>
+                </div>
+                <div class="bw-map" id="academyMap"></div>
+            </section>
+
+            <section class="bw-sandbox" id="sandbox" aria-labelledby="sandboxTitle">
+                <div class="bw-sandbox-copy">
+                    <p class="bw-kicker">Free-play sandbox</p>
+                    <h2 id="sandboxTitle">Bring your own capture.</h2>
+                    <p>
+                        The full analyzer is always available outside the academy. Drop in a pcap or pcapng
+                        file and use every Wireshark-style tool: display filters, protocol tree, follow
+                        stream, conversations, expert information, coloring rules and IO graphs.
+                    </p>
+                    <ul class="bw-check-list">
+                        <li>Files are parsed in this tab and never uploaded.</li>
+                        <li>pcap + pcapng, Ethernet / Linux SLL / raw IP.</li>
+                        <li>128 MB and 5,000 packet safety limit.</li>
+                    </ul>
+                </div>
+
+                <div class="bw-sandbox-panel">
+                    <div class="bw-drop" id="dropZone" role="button" tabindex="0" aria-label="Choose a packet capture file">
+                        <span class="bw-drop-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 16V4m0 0L7 9m5-5 5 5"/>
+                                <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>
+                            </svg>
+                        </span>
+                        <span class="bw-drop-title">Drop a capture file here</span>
+                        <span class="bw-drop-hint">or click to choose a file</span>
+                        <span class="bw-formats" aria-hidden="true">
+                            <span class="bw-chip">pcap</span>
+                            <span class="bw-chip">pcapng</span>
+                            <span class="bw-chip">Ethernet</span>
+                            <span class="bw-chip">Linux SLL</span>
+                            <span class="bw-chip">raw IP</span>
+                            <span class="bw-chip">IPv4 / IPv6</span>
+                        </span>
+                    </div>
+
+                    <div class="bw-actions">
+                        <button type="button" class="bw-btn primary" id="chooseBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 16V4m0 0L7 9m5-5 5 5"/>
+                                <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>
+                            </svg>
+                            <span>Choose file</span>
+                        </button>
+                        <button type="button" class="bw-btn" id="sampleBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 3h9l5 5v13H5V3Z"/>
+                                <path d="M14 3v5h5"/>
+                                <path d="m9 14 2 2 4-4"/>
+                            </svg>
+                            <span>Open sample capture</span>
+                        </button>
+                    </div>
+                    <p class="bw-error" id="fileError" role="alert" hidden></p>
+                </div>
+            </section>
+
+            <section class="bw-skills" aria-labelledby="skillsTitle">
+                <div class="bw-section-head">
+                    <div>
+                        <p class="bw-kicker">What you will master</p>
+                        <h2 id="skillsTitle">Read the wire like a story.</h2>
+                    </div>
+                </div>
+                <div class="bw-grid">
+                    <article class="bw-card">
+                        <h3>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3 5h18l-7 8v6l-4 2v-8L3 5Z"/>
+                            </svg>
+                            Display filters
+                        </h3>
+                        <p>Ask precise questions with Wireshark syntax: boolean logic, parentheses, CIDR, quoted strings, <code>contains</code>, <code>matches</code> and hex values.</p>
+                    </article>
+                    <article class="bw-card">
+                        <h3>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="m12 3 9 5-9 5-9-5 9-5Z"/>
+                                <path d="m3 12 9 5 9-5"/>
+                                <path d="m3 16 9 5 9-5"/>
+                            </svg>
+                            Deep dissection
+                        </h3>
+                        <p>Read Ethernet, VLAN, IPv4/IPv6, TCP, UDP, ICMP, ARP, HTTP, DNS, TLS, SSH and NTP down to the field that answers the question.</p>
+                    </article>
+                    <article class="bw-card">
+                        <h3>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>
+                            </svg>
+                            Statistics
+                        </h3>
+                        <p>Turn thousands of rows into a story with protocol hierarchy, conversations, endpoints, expert information and IO graphs.</p>
+                    </article>
+                    <article class="bw-card">
+                        <h3>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 7h7a3 3 0 0 1 0 6H7a3 3 0 0 0 0 6h7"/>
+                                <path d="m15 16 3 3-3 3"/>
+                                <path d="m15 2 3 3-3 3"/>
+                            </svg>
+                            Follow streams
+                        </h3>
+                        <p>Reassemble TCP or UDP conversations, switch direction, read ASCII or hex, and see the packet numbers behind every byte.</p>
+                    </article>
+                    <article class="bw-card">
+                        <h3>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9"/>
+                                <path d="M12 3a9 9 0 0 0 0 18c1.7 0 2-1 1.2-2.2-.8-1.2-.2-2.8 1.5-2.8H18a3 3 0 0 0 3-3"/>
+                                <circle cx="7.5" cy="11" r="1"/>
+                                <circle cx="10" cy="7" r="1"/>
+                                <circle cx="14.5" cy="6.5" r="1"/>
+                            </svg>
+                            Investigation habits
+                        </h3>
+                        <p>Work an incident end to end: NXDOMAIN, refused ports, zero windows, ICMP unreachable and fatally failed TLS handshakes.</p>
+                    </article>
+                    <article class="bw-card">
+                        <h3>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="2" y="6" width="20" height="12" rx="2"/>
+                                <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/>
+                            </svg>
+                            Keyboard first
+                        </h3>
+                        <p>Find, go-to, marks, comments, zoom and every menu one shortcut away. Press <kbd>F1</kbd> inside the viewer for filter help.</p>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bw-foot">
+            <span>Everything runs in this tab · captures are never uploaded</span>
+            <span>WIRESHARK by 0xbit · progress stored locally</span>
+        </footer>
+    </div>
+
+    <noscript>
+        <p class="bw-noscript">Browser Wireshark needs JavaScript enabled to parse capture files locally.</p>
+    </noscript>
+
+    <input type="file" id="fileInput"
+           accept=".pcap,.pcapng,.cap,application/vnd.tcpdump.pcap,application/x-pcapng"
+           aria-label="Choose a capture file" hidden>
+
+    <script src="static/pcap_viewer.js"></script>
+    <script src="samples/sample.js"></script>
+    <script src="samples/academy.js"></script>
+    <script src="static/missions.js"></script>
+    <script src="static/academy.js"></script>
+    <script src="static/app.js"></script>
+</body>
+</html>
